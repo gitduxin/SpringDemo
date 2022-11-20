@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx" xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop.xsd
+    http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/util https://www.springframework.org/schema/util/spring-util.xsd">
+
+<!--    无参构造-->
+    <bean id="user1" class="com.dx.domain.User1"/>
+
+    <bean id="user" class="com.dx.domain.User" lazy-init="true">
+<!--        set方法注入-->
+<!--        <property name="userid" value="userId"/>-->
+<!--        <property name="username" value="username"/>-->
+<!--        <property name="password" value="password"/>-->
+<!--        <property name="user1" ref="user1"/>-->
+
+<!--            构造方法注入-->
+        <constructor-arg name="userid" value="userId"/>
+        <constructor-arg name="username" value="userName"/>
+        <constructor-arg name="password" value="password"/>
+        <constructor-arg name="user1" ref="user1"/>
+    </bean>
+
+    <!--    静态工厂注入bean-->
+    <bean id="userFactory" class="com.dx.factory.UserFactory" factory-method="getUser">
+<!--        set方法注入-->
+        <property name="userid" value="userId"/>
+        <property name="username" value="username"/>
+        <property name="password" value="password"/>
+        <property name="user1" ref="user1"/>
+
+<!--            构造方法注入-->
+<!--        <constructor-arg value="userid"/>-->
+<!--        <constructor-arg value="username"/>-->
+<!--        <constructor-arg value="password"/>-->
+<!--        <constructor-arg ref="user1"/>-->
+    </bean>
+
+<!--    实例工厂注入bean-->
+    <bean id="userFactory1" class="com.dx.factory.UserFactory1"/>
+    <bean id="factory1" factory-bean="userFactory1" factory-method="getUser">
+        <!--        set方法注入-->
+        <property name="userid" value="userId"/>
+        <property name="username" value="username"/>
+        <property name="password" value="password"/>
+        <property name="user1" ref="user1"/>
+
+        <!--            构造方法注入-->
+<!--        <constructor-arg value="userid"/>-->
+<!--        <constructor-arg value="username"/>-->
+<!--        <constructor-arg value="password"/>-->
+<!--        <constructor-arg ref="user1"/>-->
+    </bean>
+
+    <bean id="simpleDateFormat" class="java.text.SimpleDateFormat">
+        <constructor-arg value="yyyy-MM-dd"/>
+    </bean>
+    <bean id="date" class="java.util.Date"/>
+
+<!--        自定义类型装换器-->
+<!--    <bean id="myDatePropertyEditorRegistrar" class="com.dx.qt.MyDatePropertyEditorRegistrar"/>-->
+<!--    <bean id="customEditorConfigurer" class="org.springframework.beans.factory.config.CustomEditorConfigurer">-->
+<!--        <property name="propertyEditorRegistrars">-->
+<!--            <array>-->
+<!--                <ref bean="myDatePropertyEditorRegistrar"/>-->
+<!--            </array>-->
+<!--        </property>-->
+<!--    </bean>-->
+
+    <util:list id="list" value-type="java.lang.String">
+        <value>str1</value>
+        <value>str2</value>
+        <value>str3</value>
+    </util:list>
+
+    <util:map id="map" key-type="java.lang.String" value-type="java.lang.String">
+        <entry key="key1" value="value1"/>
+        <entry key="key2" value="value2"/>
+        <entry key="key3" value="value3"/>
+    </util:map>
+
+    <bean id="user2" class="com.dx.domain.User2">
+        <property name="p1" value="1"/>
+        <property name="p2">
+<!--            工厂类似机制-->
+            <bean factory-bean="simpleDateFormat" factory-method="format">
+                <constructor-arg ref="date"/>
+            </bean>
+        </property>
+
+
+<!--        <property name="p3" value="2022-11-15"/> -->
+<!--        工厂类似机制-->
+        <property name="p3">
+            <bean factory-bean="simpleDateFormat" factory-method="parse">
+                <constructor-arg value="2022-11-14"/>
+            </bean>
+        </property>
+
+<!--        util属性-->
+        <property name="p4" ref="list"/>
+<!--        <property name="p4">-->
+<!--            <list>-->
+<!--                <value>str1</value>-->
+<!--                <value>str2</value>-->
+<!--                <value>str3</value>-->
+<!--            </list>-->
+<!--        </property>-->
+
+        <!--util属性-->
+        <property name="p5" ref="map"/>
+<!--        <property name="p5">-->
+<!--            <map>-->
+<!--                <entry key="1" value="1"/>-->
+<!--                <entry key="2" value="2"/>-->
+<!--            </map>-->
+<!--        </property>-->
+    </bean>
+</beans>

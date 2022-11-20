@@ -1,0 +1,30 @@
+package com.dx.service;
+
+import com.dx.dao.TestDao;
+import com.dx.domain.User;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+public class TestServiceImpl1 implements TestService {
+
+    private final TestDao testDao;
+    public TestServiceImpl1(TestDao testDao) {
+        this.testDao = testDao;
+    }
+
+    @Override
+    public void insertUser(User user) {
+        testDao.insertUser(user);
+    }
+
+    @Override
+    public User selectUser(String userid) {
+        return testDao.selectUser(userid);
+    }
+
+    @Override
+    public List<User> selectUsers() {
+        return testDao.selectUsers();
+    }
+}
