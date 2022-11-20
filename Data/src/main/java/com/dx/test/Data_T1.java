@@ -7,38 +7,45 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration("classpath:application.xml")
 public class Data_T1 {
+
+    @Autowired
+    @Qualifier("testServiceImpl1")
+    private TestService testService;
 
     @Test
     public void test1(){
-        ApplicationContext ac = ac = new ClassPathXmlApplicationContext("classpath:application.xml");
-        SqlSessionFactory factory = (SqlSessionFactory) ac.getBean("sqlSessionFactory");
-        SqlSession session = factory.openSession();
-        TestDao testDao =  session.getMapper(TestDao.class);
-        User user = testDao.selectUser("123456");
+        User user = testService.selectUser("111111");
         System.out.println(user.toString());
     }
 
     @Test
     public void test2(){
-        ApplicationContext ac = ac = new ClassPathXmlApplicationContext("classpath:application.xml");
-        SqlSessionFactory factory = (SqlSessionFactory) ac.getBean("sqlSessionFactory");
-        SqlSession session = factory.openSession();
-        TestDao testDao =  session.getMapper(TestDao.class);
-        List<User> user = testDao.selectUsers();
-        System.out.println("user.toString()");
+        List<User> users = testService.selectUsers();
+        System.out.println(users);
     }
 
     @Test
+    @Transactional
     public void test3(){
-        ApplicationContext ac = new ClassPathXmlApplicationContext("classpath:application.xml");
-        TestService testService = (TestService) ac.getBean("testServiceImpl2");
         User user = new User();
+        user.setUserid("222");
+        user.setUsername("username");
+        user.setPassword("password");
+        testService.insertUser(user);
         testService.insertUser(user);
     }
 }

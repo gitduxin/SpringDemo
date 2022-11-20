@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class TestServiceImpl1 implements TestService {
 
     private final TestDao testDao;

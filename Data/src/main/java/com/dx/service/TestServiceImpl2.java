@@ -19,12 +19,14 @@ public class TestServiceImpl2 implements TestService {
     }
 
     @Override
+    @RequiredLog
     public User selectUser(String userid) {
         System.out.println("selectUser...................");
         return null;
     }
 
     @Override
+    @RequiredLog
     public List<User> selectUsers() {
         System.out.println("selectUsers...................");
         return null;
