@@ -28,4 +28,9 @@ public class TestServiceImpl implements TestService {
     public List<User> selectUsers() {
         return testDao.selectUsers();
     }
+
+    @Override
+    public void updateUser(User user) {
+        testDao.updateUser(user);
+    }
 }

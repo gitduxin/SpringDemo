@@ -8,4 +8,5 @@ public interface TestService {
     void insertUser(User user);
     User selectUser(String userid);
     List<User> selectUsers();
+    void updateUser(User user);
 }
