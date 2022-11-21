@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,16 +37,5 @@ public class Data_T1 {
     public void test2(){
         List<User> users = testService.selectUsers();
         System.out.println(users);
-    }
-
-    @Test
-    @Transactional
-    public void test3(){
-        User user = new User();
-        user.setUserid("222");
-        user.setUsername("username");
-        user.setPassword("password");
-        testService.insertUser(user);
-        testService.insertUser(user);
     }
 }
