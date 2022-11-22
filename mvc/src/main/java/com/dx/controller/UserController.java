@@ -11,6 +11,11 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import sun.java2d.pipe.SpanIterator;
 
+/**
+ *model modelmap modelandview
+ * PostMapping getMapping  RequestMapping
+ * RequestParam
+ */
 @Controller
 public class UserController {
 

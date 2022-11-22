@@ -22,7 +22,7 @@ import javax.servlet.http.HttpSession;
 public class TestController1 {
 
 
-    @RequestMapping("/test1")
+    @RequestMapping("/tc1_1")
     public String setUser(Model model){
         User user = new User();
         user.setUserid("909090");
@@ -33,7 +33,7 @@ public class TestController1 {
         return "success";
     }
 
-//    @RequestMapping("/test1")
+//    @RequestMapping("/tc1_1")
 //    public ModelAndView setUser(ModelAndView model){
 //        User user = new User();
 //        user.setUserid("909090");
@@ -44,14 +44,14 @@ public class TestController1 {
 //        return model;
 //    }
 
-    @RequestMapping("/test2")
+    @RequestMapping("/tc1_2")
     @ResponseBody
     public String getUser1(HttpSession session){
         System.out.println(((User)session.getAttribute("user")).toString());
         return "success";
     }
 
-    @RequestMapping("/test3")
+    @RequestMapping("/tc1_3")
     @ResponseBody
     public String getUser2(Model model){
         User user = (User) model.getAttribute("user");
@@ -59,14 +59,14 @@ public class TestController1 {
         return "success";
     }
 
-    @RequestMapping("/test4")
+    @RequestMapping("/tc1_4")
     @ResponseBody
     public String getUser3(@ModelAttribute("user") User user){
         System.out.println(user.toString());
         return "success";
     }
 
-    @RequestMapping("/test5")
+    @RequestMapping("/tc1_5")
     @ResponseBody
     public String getUser4(@SessionAttribute("user") User user){
         System.out.println(user.toString());
