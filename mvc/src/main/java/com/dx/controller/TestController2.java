@@ -18,6 +18,7 @@ import javax.validation.Valid;
 import javax.xml.crypto.Data;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Map;
 
 /**
  * 数据绑定
@@ -44,7 +45,7 @@ public class TestController2 {
      *  如果定义了多个模型绑定参数@RequestParam、@ModelAttribute时，每个绑定参数后面应跟着一个BindingResult
      *  例子：@ModelAttribute Date a,BindingResult aresult,@ModelAttribute Date b,BindingResult bresult
      *
-     *
+     *  对于请求参数写在url上时，请求参数可以转换成java对象
      */
     @PostMapping("tc2_1")
     @ResponseBody
@@ -56,13 +57,28 @@ public class TestController2 {
         return user2;
     }
 
+    /**
+     * 属性名绑定：请求参数和方法参数相同时，可以自动绑定
+     */
     @PostMapping("tc2_2")
     @ResponseBody
-    public void getValue(int a, double b, String c, Date d){
+    public String getValue1(int a, double b, String c, Date d){
         System.out.println(a);
         System.out.println(b);
         System.out.println(c);
         System.out.println(d);
+        return "ok";
+    }
+
+    @PostMapping("tc2_3")
+    @ResponseBody
+    public String getValue2(@RequestParam Map<String,Object> map){
+        System.out.println(map);
+        System.out.println(map.get("a"));
+        System.out.println(map.get("b"));
+        System.out.println(map.get("c"));
+        System.out.println(map.get("d"));
+        return "ok";
     }
 
 }

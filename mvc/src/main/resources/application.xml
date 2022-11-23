@@ -80,7 +80,7 @@
         <property name="suffix" value=".html"/>
     </bean>
 
-    <mvc:default-servlet-handler/>
+<!--    <mvc:default-servlet-handler/>-->
     <mvc:annotation-driven>
         <mvc:message-converters>
             <bean class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
@@ -95,4 +95,9 @@
             </bean>
         </mvc:message-converters>
     </mvc:annotation-driven>
+    
+    <mvc:resources mapping="/static/css/**" location="/static/css/"/>
+    <mvc:resources mapping="/static/images/**" location="/static/images/"/>
+    <mvc:resources mapping="/static/js/**" location="/static/js/"/>
+    <mvc:resources mapping="/static/font/**" location="/static/font/"/>
 </beans>
